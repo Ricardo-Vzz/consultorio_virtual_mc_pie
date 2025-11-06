@@ -1,30 +1,29 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 
 // importar paginas
-import Home from './pages/Home.jsx'
-import Cita from './pages/Cita.jsx'
+import Home from './pages/home.jsx'
+import Cita from './pages/cita.jsx'
+import Servicios from './pages/servicios.jsx'
+import Portafolio from './pages/portafolio.jsx'
+import FAQ from './pages/fac.jsx'
+import Contacto from './pages/contacto.jsx'
 
 //importar componentes
-import Navbar from './components/Navbar.jsx'
-import Breadcrums from './components/Breadcrums.jsx'
+import MainLayaut from './layauts/main_layaut.jsx'
 
 function App (){
     return (
     <BrowserRouter>
-        <Navbar />
-        {/*<Breadcrums />*/}
-        <main>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/cita" element={<Cita />} />
-
-                {/* Agregar los jsx de los diferentes elementos*/}
-                <Route path="/servicios" element={<h1>Servicios</h1>} />
-                <Route path="/portafolio" element={<h1>Portafolio</h1>} />
-                <Route path="/faq" element={<h1>Preguntas Frecuentes</h1>} />
-                <Route path="/contacto" element={<h1>Contacto</h1>} />
-            </Routes>
-        </main>
+        <Routes>
+            <Route path="/" element= {<MainLayaut/>} >
+            <Route index element = {<Home/>} />
+            <Route path="/cita" element={<Cita/>} />
+            <Route path="/servicios" element={<Servicios/>} />
+            <Route path="/portafolio" element={<Portafolio/>} />
+            <Route path="/faq" element={<FAQ/>} />
+            <Route path="/contacto" element={<Contacto/>} />
+            </Route>
+        </Routes>
     </BrowserRouter>
     );
 }
