@@ -1,7 +1,7 @@
 function Header() {
     return (
         <header>
-            <h1>McPie</h1>
+            <h1></h1>
         </header>
     );
 }

@@ -1,0 +1,298 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+
+    /* Colores del Mockup */
+    --color-primary: #12826a; /*pie de página */
+    --color-secondary: #0e6c58; /* Verde/Teal más oscuro */
+    
+    /*Botones CTA*/
+    --color-text-dark: #333;
+    --color-text-light: #fff;
+    
+    /*CTA colores de btn*/
+    --color-cta-primary: #333;
+    --color-cta-secondary: #fff;
+}
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    background: url('/fondo.jpg') no-repeat center center / cover;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.doc-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    width: 240px;
+}
+
+/* Estilos de las etiquetas (Nombre, Especialidad) */
+.doctor-card .label {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+}
+
+/* Estilos de los valores (Dr. Cristian..., Podología Clínica) */
+.doctor-card .value {
+    margin: 0 0 8px 0;
+    color: #000;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+/* Superposición para el efecto de difuminado/filtro */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    padding: 0 clamp(200px, 5vw, 100px);
+}
+
+.hero-content h1 {
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.hero-content .tagline {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: bold;
+    color: var(--color-text-dark);
+    margin-bottom: 20px;
+}
+
+.hero-content .description {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+}
+
+
+/*La etiqueta del doctor debe de ser como una targeta de presentacion*/
+.doctor-card {
+    z-index: 7;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 725px;
+    color: var(--color-text-dark);
+}
+
+.presentacion-doctor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 60px 20px;
+    background-color: #f8f8f8;
+    flex-wrap: wrap;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: 1px solid var(--color-cta-primary);
+}
+
+.btn-primary {
+    background-color: var(--color-cta-primary);
+    color: var(--color-text-light);
+}
+
+.btn-secondary {
+    background-color: var(--color-cta-secondary);
+    color: var(--color-cta-primary);
+}
+
+.btn-primary:hover {
+    background-color: #555;
+}
+
+.btn-secondary:hover {
+    background-color: #eee;
+}
+
+.testimonials-section {
+    padding: 80px 40px;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+.testimonials-section h2 {
+    color: var(--color-text-dark);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.testimonials-section .subtitle {
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.testimonials-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.testimonial-card {
+    background-color: var(--color-text-light);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 30px;
+    max-width: 350px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card .quote {
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: var(--color-text-dark);
+}
+
+.testimonial-card .author {
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-top: 5px;
+}
+
+.author {
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-top: 5px;
+}
+
+.author.margin {
+    margin-bottom: 20px;
+}
+
+.testimonial-card .date {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.main-footer {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: 40px 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-content h3, .footer-content h4 {
+    margin-bottom: 15px;
+    color: var(--color-text-light);
+}
+
+.footer-info, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-info p, .footer-contact p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    line-height: 2;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ccc;
+}
+
+.section-center {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+@media (max-width: 900px) {
+
+    .hero-banner {
+        height: 550px;
+        align-items: flex-start;
+        padding-top: 50px;
+    }
+    
+    .hero-content {
+        padding: 0 20px;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .doctor-card {
+        display: none;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}

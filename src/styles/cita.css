@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 40px 20px;
+}
+
+.buttons{
+    margin-left: 70%;
+}
+
+.service-button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* 2. Estilo cuando la tarjeta está seleccionada */
+.service-card.selected {
+  border: 2px solid #0ea5e9; /* Borde azul vibrante */
+  background-color: #f0f9ff; /* Fondo sutilmente azul */
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.2); /* Sombra resaltada */
+  transform: translateY(-3px); /* Pequeña elevación */
+  transition: all 0.2s ease-in-out;
+}
+
+.services-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.services-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.services-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #6c757d;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 2, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 30px;
+    width: 200px;
+    height: 180px;
+    text-align: center;
+    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.card-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+}
+
+.icon {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: currentColor;
+    border-radius: 50%;
+}
+
+.icon-menu {
+  width: 128px;
+  height: 128px;
+}
+
+.var-progress {
+    width: 100%;
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.var-progress::-webkit-progress-bar {
+    background-color: #e0e7ee;
+}
+
+.card-ortopedico { border: 1px solid #e9f5e9; }
+.card-ortopedico .card-icon-wrapper { border-color: #38a169; background-color: #f7fcf8; }
+.card-ortopedico .icon { color: #38a169; } /* Color del icono */
+
+.card-unas { border: 1px solid #fcf4e9; }
+.card-unas .card-icon-wrapper { border-color: #d97706; background-color: #fffaf4; }
+.card-unas .icon { color: #d97706; }
+
+.card-rayosx { border: 1px solid #e6f0fa; }
+.card-rayosx .card-icon-wrapper { border-color: #3b82f6; background-color: #f8fbfd; }
+.card-rayosx .icon { color: #3b82f6; }
+
+.card-diabetico { border: 1px solid #eaf3f8; }
+.card-diabetico .card-icon-wrapper { border-color: #5a0c6e; background-color: #f7f9fa; }
+.card-diabetico .icon { color: #5a0c6e; }
+
+.card-consulta { border: 1px solid #ebf5fa; }
+.card-consulta .card-icon-wrapper { border-color: #0ea5e9; background-color: #f8fbfe; }
+.card-consulta .icon { color: #0ea5e9; }
+
+.card-quiropodia { border: 1px solid #fae6e6; }
+.card-quiropodia .card-icon-wrapper { border-color: #ef4444; background-color: #fef8f8; }
+.card-quiropodia .icon { color: #ef4444; }
+
+@media (max-width: 900px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 2, 1fr);
+
+    }
+
+    .service-card{
+        width: 150px;
+    }
+}

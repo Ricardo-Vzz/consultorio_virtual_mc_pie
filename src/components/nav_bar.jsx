@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 
 function Navbar () {
  return (
-   <nav>
-       <ul>
+   <nav className="nav">
+    <div className="nav-brand">McPie</div>
+       <ul className="nav-list">
         <li><Link to="/">Home</Link></li>
         <li><Link to="/cita">Agendar Cita</Link></li>
         <li><Link to="/servicios">Servicios</Link></li>
