@@ -19,21 +19,28 @@ function Home() {
                     </div>
 
                 </header>
-
+                {/* SECCIÓN PRESENTACIÓN DOCTOR (ESTILO XL MEJORADO) */}
                 <section className="presentacion-doctor">
-                    <div className="doctor-card">
+                    <div className="doctor-card XL">
                         <div className="doctor-left">
-                            <img src="/doc.jpg" className="doc-img"></img>
-                            <p className="label">Nombre:</p>
-                            <p className="value">Cristhian Yazir Medina</p>
-                            <p className="label">Especialidad:</p>
-                            <p className="value">Podología Clínica</p>
+                            <img src="/doc.jpg" alt="Dr. Cristhian Yazir Medina" className="doc-img-styled" />
                         </div>
 
                         <div className="doctor-right">
-                                <h2>Sobre Mc. Pie</h2>
+                            <div className="info-group">
+                                <span className="label">ESPECIALISTA</span>
+                                <h2 className="value name">Dr. Cristhian Yazir Medina</h2>
+                            </div>
+
+                            <div className="info-group">
+                                <span className="label">RAMA MÉDICA</span>
+                                <p className="value specialty">Podología Clínica</p>
+                            </div>
+
+                            <div className="info-group">
                                 <p className="subtitle">Nuestro objetivo es proporcionar alivio y mejorar la calidad de vida de nuestros pacientes a través de tratamientos personalizados y atención profesional.</p>
-                                <p>Ya sea que estés lidiando con dolor en los pies, problemas de postura o cualquier otra molestia relacionada con las extremidades inferiores, en Mc. Pie estamos aquí para ayudarte a recuperar tu bienestar y movilidad.</p>
+                                <p className="card-description">Estamos aquí para ayudarte a recuperar tu bienestar y movilidad con tecnología de vanguardia y un trato humano.</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -46,7 +53,7 @@ function Home() {
 
                         <div className="testimonial-card">
                             <p className="author">Estudio de la pisada</p>
-                            <img src="/estudio_pisada.jpg"></img>
+                            <img className="doc-img" src="/estudio_pisada.png"></img>
                             <p className="date">Análisis detallado de la biomecánica del pie para identificar problemas y mejorar la postura y el equilibrio.</p>
                         </div>
 

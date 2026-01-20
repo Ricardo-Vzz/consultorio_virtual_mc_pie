@@ -1,0 +1,53 @@
+.seccion-servicios {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cards-grid {
+    display: grid;
+    /* minmax(280px, 1fr) dice: 
+       "Crea columnas de al menos 280px, pero si hay espacio, rellena el resto (1fr)".
+       Esto hace que se pongan 3, 2 o 1 columna automáticamente.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px; /* Espacio entre los recuadros */
+}
+
+.custom-card {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 200px; /* Altura fija para que todas las fotos se vean iguales */
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/*poner un cachito de espacio para arriba*/
+.card-description {
+    margin: 0;
+    font-size: 0.95rem; 
+    color: #666;
+    line-height: 1.4;
+}

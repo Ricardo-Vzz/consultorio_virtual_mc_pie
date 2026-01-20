@@ -135,7 +135,7 @@
     gap: 40px;
     padding: 60px 20px;
     background-color: #f8f8f8;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
 }
 
 .cta-buttons {
@@ -174,6 +174,126 @@
     padding: 80px 40px;
     text-align: center;
     background-color: #f8f8f8;
+}
+
+.testimonials-section .sinpadinng{
+    padding: 80px, 0px;
+}
+
+
+/* --- CONTENEDOR DE SERVICIOS (Gama de tarjetas) --- */
+.cards-grid {
+    display: grid;
+    /* Cambiamos el mínimo a 250px para celulares delgados */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+    width: 100%;
+}
+
+/* --- TARJETA DEL DOCTOR (El reto principal) --- */
+.doctor-card.XL {
+    display: flex;
+    flex-direction: column; /* Por defecto: uno arriba del otro (móvil) */
+    gap: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    
+    /* CAMBIO CLAVE: Quitamos el width fijo de 725px */
+    width: 100%; 
+    max-width: 800px; /* Solo crecerá hasta aquí en PC */
+    margin: 0 auto;
+    border-left: 5px solid var(--color-primary);
+}
+
+.doc-img-styled {
+    width: 100%;      /* En móvil ocupa todo el ancho */
+    max-width: 280px; /* No deja que se haga gigante */
+    height: auto;
+    aspect-ratio: 4/5; /* Mantiene la proporción de retrato */
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 auto;   /* Centra la imagen en móvil */
+}
+
+/* --- MEDIA QUERIES (Ajustes por pantalla) --- */
+
+/* TABLETS (Desde 768px en adelante) */
+@media (min-width: 768px) {
+    .doctor-card.XL {
+        flex-direction: row; /* Imagen a la izquierda, texto a la derecha */
+        align-items: center;
+        padding: 30px;
+    }
+
+    .doctor-left {
+        flex: 0 0 240px; /* La imagen mantiene su tamaño profesional */
+    }
+
+    .doctor-right {
+        text-align: left;
+    }
+}
+
+/* PC / PANTALLAS GRANDES (Desde 1024px) */
+@media (min-width: 1024px) {
+    .hero-content h1 {
+        font-size: 4.5rem; /* Evitamos que el texto sea exageradamente grande */
+    }
+    
+    .doctor-card.XL {
+        gap: 40px;
+    }
+}
+
+/* CELULARES EXTRA DELGADOS (Menos de 350px) */
+@media (max-width: 350px) {
+    .card-content {
+        padding: 15px;
+    }
+    
+    .doctor-card .value.name {
+        font-size: 1.4rem; /* Reducimos el nombre para que no se corte */
+    }
+}
+
+.presentacion-doctor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    /* Un degradado lineal suave que va del gris muy claro a un toque de tu verde */
+    background: linear-gradient(135deg, #f8f8f8 0%, #e9f5f2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoración opcional: un círculo de color muy suave al fondo */
+.presentacion-doctor::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: var(--color-primary);
+    opacity: 0.05;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.doctor-card.XL {
+    position: relative;
+    z-index: 1; /* Para estar sobre el círculo decorativo */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    background-color: #fff; /* Blanco puro para resaltar sobre el fondo gris/verde */
+}
+
+/* Efecto al pasar el mouse */
+.doctor-card.XL:hover {
+    transform: translateY(-8px); /* Sube un poco */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Sombra más profunda */
 }
 
 .testimonials-section h2 {

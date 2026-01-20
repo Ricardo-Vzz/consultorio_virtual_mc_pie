@@ -1,4 +1,4 @@
-function Cita() {
+function Portafolio() {
   return (
     <>
       <div>
@@ -8,4 +8,4 @@ function Cita() {
   )
 }
 
-export default Cita
+export default Portafolio

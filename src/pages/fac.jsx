@@ -1,9 +1,11 @@
-function Cita() {
+function Faq() {
   return (
-    <>
-      <section className="testimonials-section">
-        <h2>Preguntas Frecuentes</h2>
-        <p className="services-subtitle">  </p>
+    <section className="page-premium">
+      <div className="container">
+        <div className="header-pro">
+          <h2>Preguntas Frecuentes</h2>
+          <p>¿Cómo para ayudarte?</p>
+        </div>
 
         <details className="faq-item">
           <summary className="faq-header">
@@ -53,9 +55,9 @@ function Cita() {
             </p>
           </div>
         </details>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
 
-export default Cita
+export default Faq

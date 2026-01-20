@@ -6,6 +6,8 @@ import './styles/cita.css'
 import './styles/nav.css'
 import './styles/inicio.css'
 import './styles/faq.css'
+import './styles/servicios.css'
+import './styles/contacto.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
