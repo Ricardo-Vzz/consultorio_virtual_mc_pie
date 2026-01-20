@@ -8,8 +8,8 @@
 :root {
 
     /* Colores del Mockup */
-    --color-primary: #12826a; /*pie de página */
-    --color-secondary: #0e6c58; /* Verde/Teal más oscuro */
+    --color-primary: #12826a;
+    --color-secondary: #0e6c58;
     
     /*Botones CTA*/
     --color-text-dark: #333;
@@ -37,7 +37,6 @@
     width: 240px;
 }
 
-/* Estilos de las etiquetas (Nombre, Especialidad) */
 .doctor-card .label {
     font-weight: bold;
     font-size: 0.9em;
@@ -45,7 +44,6 @@
     margin: 0;
 }
 
-/* Estilos de los valores (Dr. Cristian..., Podología Clínica) */
 .doctor-card .value {
     margin: 0 0 8px 0;
     color: #000;
@@ -67,7 +65,6 @@
     gap: 10px;
 }
 
-/* Superposición para el efecto de difuminado/filtro */
 .overlay {
     position: absolute;
     top: 0;
@@ -105,18 +102,6 @@
     margin-bottom: 30px;
 }
 
-
-/*La etiqueta del doctor debe de ser como una targeta de presentacion
-.doctor-card {
-    z-index: 7;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 725px;
-    color: var(--color-text-dark);
-}
-*/
 .doctor-card {
     display: flex;
     gap: 40px;
@@ -135,7 +120,6 @@
     gap: 40px;
     padding: 60px 20px;
     background-color: #f8f8f8;
-    /*flex-wrap: wrap;*/
 }
 
 .cta-buttons {
@@ -180,55 +164,47 @@
     padding: 80px, 0px;
 }
 
-
-/* --- CONTENEDOR DE SERVICIOS (Gama de tarjetas) --- */
 .cards-grid {
     display: grid;
-    /* Cambiamos el mínimo a 250px para celulares delgados */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
     gap: 20px;
     width: 100%;
 }
 
-/* --- TARJETA DEL DOCTOR (El reto principal) --- */
 .doctor-card.XL {
     display: flex;
-    flex-direction: column; /* Por defecto: uno arriba del otro (móvil) */
+    flex-direction: column;
     gap: 20px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    
-    /* CAMBIO CLAVE: Quitamos el width fijo de 725px */
+
     width: 100%; 
-    max-width: 800px; /* Solo crecerá hasta aquí en PC */
+    max-width: 800px;
     margin: 0 auto;
     border-left: 5px solid var(--color-primary);
 }
 
 .doc-img-styled {
-    width: 100%;      /* En móvil ocupa todo el ancho */
-    max-width: 280px; /* No deja que se haga gigante */
+    width: 100%;
+    max-width: 280px;
     height: auto;
-    aspect-ratio: 4/5; /* Mantiene la proporción de retrato */
+    aspect-ratio: 4/5;
     object-fit: cover;
     border-radius: 8px;
-    margin: 0 auto;   /* Centra la imagen en móvil */
+    margin: 0 auto;
 }
 
-/* --- MEDIA QUERIES (Ajustes por pantalla) --- */
-
-/* TABLETS (Desde 768px en adelante) */
 @media (min-width: 768px) {
     .doctor-card.XL {
-        flex-direction: row; /* Imagen a la izquierda, texto a la derecha */
+        flex-direction: row;
         align-items: center;
         padding: 30px;
     }
 
     .doctor-left {
-        flex: 0 0 240px; /* La imagen mantiene su tamaño profesional */
+        flex: 0 0 240px;
     }
 
     .doctor-right {
@@ -236,10 +212,9 @@
     }
 }
 
-/* PC / PANTALLAS GRANDES (Desde 1024px) */
 @media (min-width: 1024px) {
     .hero-content h1 {
-        font-size: 4.5rem; /* Evitamos que el texto sea exageradamente grande */
+        font-size: 4.5rem;
     }
     
     .doctor-card.XL {
@@ -247,14 +222,13 @@
     }
 }
 
-/* CELULARES EXTRA DELGADOS (Menos de 350px) */
 @media (max-width: 350px) {
     .card-content {
         padding: 15px;
     }
     
     .doctor-card .value.name {
-        font-size: 1.4rem; /* Reducimos el nombre para que no se corte */
+        font-size: 1.4rem;
     }
 }
 
@@ -263,13 +237,11 @@
     align-items: center;
     justify-content: center;
     padding: 80px 20px;
-    /* Un degradado lineal suave que va del gris muy claro a un toque de tu verde */
     background: linear-gradient(135deg, #f8f8f8 0%, #e9f5f2 100%);
     position: relative;
     overflow: hidden;
 }
 
-/* Decoración opcional: un círculo de color muy suave al fondo */
 .presentacion-doctor::before {
     content: "";
     position: absolute;
@@ -285,15 +257,14 @@
 
 .doctor-card.XL {
     position: relative;
-    z-index: 1; /* Para estar sobre el círculo decorativo */
+    z-index: 1;
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
-    background-color: #fff; /* Blanco puro para resaltar sobre el fondo gris/verde */
+    background-color: #fff;
 }
 
-/* Efecto al pasar el mouse */
 .doctor-card.XL:hover {
-    transform: translateY(-8px); /* Sube un poco */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* Sombra más profunda */
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .testimonials-section h2 {
@@ -441,3 +412,304 @@
         text-align: center;
     }
 }
+
+/*LOGIN*/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.login-popup {
+    background-color: var(--color-text-light);
+    width: 90%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #e9f5f2;
+    color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    font-size: 1.5rem;
+}
+
+.login-header h3 {
+    color: var(--color-text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+/* Formulario */
+.input-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--color-primary);
+}
+
+.btn-full {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+    border: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #999;
+    cursor: pointer;
+}
+
+.login-footer {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+/*Admin*/
+
+.rect-sutil {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: #fff;
+    width: 600px;;
+    transition: border-color 0.3s ease;
+}
+
+.rect-acento {
+    border: 2px solid var(--color-primary);
+    border-radius: 20px;
+    padding: 25px;
+    background-color: #f0f9f7;
+    color: var(--color-text-dark);
+}
+
+.rect-elevado {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+
+/*admin new*/
+/* --- VARIABLES Y RESET --- */
+.admin-wrapper {
+  background: #f4f7f6;
+  min-height: 100vh;
+  padding: 40px;
+  color: var(--color-text-dark);
+}
+
+.admin-header { margin-bottom: 40px; }
+.admin-header h1 { color: var(--color-primary); font-size: 2.2rem; }
+
+/* --- DASHBOARD LAYOUT --- */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* Agenda */
+.agenda-container {
+  background: white;
+  padding: 30px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-with-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.date-badge {
+  background: var(--color-primary);
+  color: white;
+  padding: 6px 15px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+}
+
+.agenda-scroll { overflow-y: auto; flex: 1; }
+
+.cita-row {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+  background: #fafafa;
+}
+
+.cita-row:hover { background: #f0fdfa; transform: translateX(5px); }
+
+.cita-hour { font-weight: bold; width: 80px; color: var(--color-primary); }
+
+.cita-details { flex: 1; display: flex; flex-direction: column; }
+
+.cita-name { font-weight: 600; font-size: 1.05rem; }
+
+.cita-service { font-size: 0.85rem; color: #777; }
+
+/* Status Pills */
+.status-pill {
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.status-pill.en-progreso { background: #dcfce7; color: #166534; }
+.status-pill.pendiente { background: #fef9c3; color: #854d0e; }
+
+/* --- ASIDE PANEL --- */
+.control-panel { display: flex; flex-direction: column; gap: 20px; }
+
+.live-card {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(18, 130, 106, 0.3);
+}
+
+.pulse-icon {
+  width: 10px; height: 10px; background: #fff; border-radius: 50%;
+  display: inline-block; margin-right: 10px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255,255,255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); }
+}
+
+.live-body h2 { font-size: 2rem; margin: 15px 0 5px; }
+
+.next-preview {
+  margin-top: 25px; padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  font-size: 0.9rem;
+}
+
+/* Botones Admin */
+.btn-admin-action {
+  width: 100%; padding: 15px; border: none; border-radius: 12px;
+  background: var(--color-text-dark); color: white;
+  font-weight: bold; cursor: pointer; transition: 0.3s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+
+.btn-admin-action.secondary { background: white; color: var(--color-text-dark); border: 2px solid #eee; }
+
+.btn-admin-action:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+/* --- STATS SECTION --- */
+.stats-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
+
+.stat-group h4 { margin-bottom: 15px; color: #666; font-size: 0.9rem; text-transform: uppercase; }
+
+.stat-cards-container { display: flex; gap: 15px; }
+
+.mini-stat {
+  flex: 1; background: white; padding: 20px; border-radius: 15px;
+  text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.mini-stat strong { display: block; font-size: 1.8rem; color: var(--color-primary); }
+
+.mini-stat span { font-size: 0.8rem; color: #888; }
+
+.mini-stat.danger strong { color: #e53e3e; }
+
+.mini-stat.info strong { color: #3182ce; }
+
+/* --- COMENTARIOS --- */
+.comments-floating-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;
+}
+
+.comment-bubble {
+  background: white; padding: 25px; border-radius: 15px;
+  border-left: 5px solid var(--color-primary);
+}
+
+.comment-meta { display: flex; flex-direction: column; margin-bottom: 15px; }
+
+.tag-tipo {
+  align-self: flex-start; background: #eee; padding: 2px 8px;
+  border-radius: 4px; font-size: 0.7rem; margin-top: 5px; font-weight: bold;
+}
+
+.comment-btns { display: flex; gap: 10px; margin-top: 20px; }
+
+.btn-approve, .btn-deny {
+  flex: 1; padding: 8px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer;
+}
+
+.btn-approve { background: #dcfce7; color: #166534; }
+
+.btn-deny { background: #fee2e2; color: #991b1b; }
