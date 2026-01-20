@@ -1,88 +1,24 @@
 import { useState } from "react";
-import {useSessionStorage} from "../hooks/useSessionStorage";
 
 function Admin() {
 
-  
-  const [selectedService, setSelectedService] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [names, setNames] = useState([]);
 
-  const [formData, setFormData] = useSessionStorage("registro_cita", {
-    id: null,
-    nombre: "",
-  });
+  useEffect(() => {
+    axios.get("api/names")
+      .then(res => setNames(res.data));
+  }, []);
 
-  /* =====================
-     MANEJADORES
-  ====================== */
+  /*return (
+    <ul>
+      {names.map(n => (
+        <li key={n.id}>{n.nombre}</li>
+      ))}
+    </ul>
+  );
+  }*/
 
-  const seleccionarServicio = (service) => {
-    setSelectedService(service);
-    setFormData({ ...formData, servicio: service });
-  };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  /* =====================
-     VALIDACIONES
-  ====================== */
-
-  const validarPaso = () => {
-    switch (formData.paso) {
-      case 1:
-        if (!formData.id) {
-          alert("Seleccione una cita");
-          return false;
-        }
-        return true;
-
-      default:
-        return true;
-    }
-  };
-
-  /* =====================
-     API
-  ====================== */
-
-  const handleSubmit = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch("https://TU_BACKEND_URL/api/citas", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: formData.id,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error al agendar la cita");
-      }
-
-      const data = await response.json();
-      console.log("Respuesta API:", data);
-
-      window.sessionStorage.removeItem("registro_cita");
-      alert("Cita agendada con éxito");
-
-      // Reset visual
-      setSelectedService(null);
-
-    } catch (err) {
-      console.error(err);
-      setError("No se pudo agendar la cita. Intente nuevamente.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>

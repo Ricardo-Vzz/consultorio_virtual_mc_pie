@@ -99,6 +99,129 @@ body {
     margin-bottom: 15px;
     background-color: #ffffff;
 }
+/**/
+/* CONTENEDOR GENERAL */
+.react-calendar {
+    max-width: 350px;
+    margin: auto;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-family: inherit;
+}
+
+/* HEADER (MES / AÑO) */
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.react-calendar__navigation button {
+    font-size: 1.3rem;
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.react-calendar__navigation button:hover {
+    background: rgba(18, 130, 106, 0.12);
+    border-radius: 10px;
+}
+
+.react-calendar__navigation__next-button{
+    font-size: 1.3rem;
+    color: var(--color-primary);
+    margin-right: 8px;
+    font-size: 0.75rem;
+    margin-left: 4px;
+}
+
+.react-calendar__navigation__next-button::after{
+    content: 'Mes';
+}
+
+.react-calendar__navigation__next2-button::after{
+    content: 'Año';
+}
+
+.react-calendar__navigation__next2-button{
+    font-size: 1.6rem;
+    margin-left: 4px;
+    color: var(--color-primary);
+}
+
+.react-calendar__navigation__label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-transform: capitalize;
+    font-size: 1.25rem;
+}
+
+.react-calendar__navigation button:disabled {
+    display: none;
+}
+
+.react-calendar__month-view__days{
+    display: grid;
+    grid-template-columns: repeat(7,1 fr);
+    gap: 6px;
+}
+
+/* NOMBRES DE LOS DÍAS */
+.react-calendar__month-view__weekdays {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #777;
+}
+
+.react-calendar__month-view__weekdays abbr {
+    text-decoration: none;
+}
+
+/* DÍAS */
+.react-calendar__tile {
+    padding: 10px 6px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    color: var(--color-text-dark);
+}
+
+/* DÍA ACTUAL */
+.react-calendar__tile--now {
+    background: rgba(18, 130, 106, 0.18);
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+/* DÍA SELECCIONADO */
+.react-calendar__tile--active {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    border-color: var(--color-primary);
+    border-radius: 8px;
+}
+
+/* DÍAS DESHABILITADOS */
+.react-calendar__tile:disabled {
+    background-color: #f0f0f0;
+    color: #aaa;
+}
+
+/* ELIMINA BORDES INTERNOS */
+.react-calendar__tile:focus {
+    outline: none;
+}
+
+/**/
 
 .icon {
     display: block;
@@ -157,4 +280,67 @@ body {
     .service-card{
         width: 150px;
     }
+}
+
+.time-section {
+    margin-top: 20px;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+}
+
+.time-title {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+/* GRID DE HORAS */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* SLOT DE HORA */
+.time-slot {
+    padding: 10px 0;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--color-text-dark);
+}
+
+/* Hover */
+.time-slot:hover {
+    background: rgba(18, 130, 106, 0.12);
+    border-color: var(--color-primary);
+}
+
+/* Hora seleccionada */
+.time-slot.active {
+    background: var(--color-primary);
+    color: var(--color-text-light);
+    border-color: var(--color-primary);
+}
+
+/* Horas no disponibles */
+.time-slot.disabled {
+    background: #f0f0f0;
+    color: #aaa;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+/* Domingo */
+.closed-message {
+    text-align: center;
+    font-weight: bold;
+    color: #999;
+    margin-top: 10px;
 }

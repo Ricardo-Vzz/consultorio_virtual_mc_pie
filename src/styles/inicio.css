@@ -53,6 +53,20 @@
     font-weight: normal;
 }
 
+.doctor-left {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.doctor-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
 /* Superposición para el efecto de difuminado/filtro */
 .overlay {
     position: absolute;
@@ -92,9 +106,20 @@
 }
 
 
-/*La etiqueta del doctor debe de ser como una targeta de presentacion*/
+/*La etiqueta del doctor debe de ser como una targeta de presentacion
 .doctor-card {
     z-index: 7;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 725px;
+    color: var(--color-text-dark);
+}
+*/
+.doctor-card {
+    display: flex;
+    gap: 40px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 12px;
