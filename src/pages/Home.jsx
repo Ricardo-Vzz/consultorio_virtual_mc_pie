@@ -53,7 +53,8 @@ function Home() {
 
                         <div className="testimonial-card">
                             <p className="author">Estudio de la pisada</p>
-                            <img className="doc-img" src="/estudio_pisada.png"></img>
+                            <img src="/pisada.jpg"></img>
+                            {/*className="doc-img" src="/estudio_pisada.png"*/}
                             <p className="date">Análisis detallado de la biomecánica del pie para identificar problemas y mejorar la postura y el equilibrio.</p>
                         </div>
 

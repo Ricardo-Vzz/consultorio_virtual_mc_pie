@@ -1,11 +1,16 @@
-function Cita() {
+function Servicios() {
   return (
-    <section>
-      <section className="seccion-servicios">
+    <section className="page-premium">
+      <div className="container">
+        <div className="header-pro">
+          <h2>Servicios</h2>
+          <p>Ofrecemos una amplia gama de servicios especializados en podológia para el cuidado integral de tus pies.</p>
+        </div>
+        
         <div className="cards-grid">
           <div className="custom-card">
             <div className="card-image-wrapper">
-              <img src="/servicio1.jpg" alt="Descripción" className="card-img" />
+              <img src="/pie_5.jpg" alt="Descripción" className="card-img" />
             </div>
             <div className="card-content">
               <h3 className="card-title">Podología Infantil</h3>
@@ -14,7 +19,7 @@ function Cita() {
           </div>
           <div className="custom-card">
             <div className="card-image-wrapper">
-              <img src="/servicio2.jpg" alt="Descripción" className="card-img" />
+              <img src="/pie_3_editado.jpg" alt="Descripción" className="card-img" />
             </div>
             <div className="card-content">
               <h3 className="card-title">Pie Diabético</h3>
@@ -32,7 +37,7 @@ function Cita() {
           </div>
           <div className="custom-card">
             <div className="card-image-wrapper">
-              <img src="/servicio3.jpg" alt="Descripción" className="card-img" />
+              <img src="/pie_1.jpg" alt="Descripción" className="card-img" />
             </div>
             <div className="card-content">
               <h3 className="card-title">Eliminación de Callos y Durezas</h3>
@@ -41,7 +46,7 @@ function Cita() {
           </div>
           <div className="custom-card">
             <div className="card-image-wrapper">
-              <img src="/servicio3.jpg" alt="Descripción" className="card-img" />
+              <img src="/pie_2.jpg" alt="Descripción" className="card-img" />
             </div>
             <div className="card-content">
               <h3 className="card-title">Ortopodología</h3>
@@ -50,7 +55,7 @@ function Cita() {
           </div>
           <div className="custom-card">
             <div className="card-image-wrapper">
-              <img src="/servicio3.jpg" alt="Descripción" className="card-img" />
+              <img src="/pie_4.jpg" alt="Descripción" className="card-img" />
             </div>
             <div className="card-content">
               <h3 className="card-title">Tratamiento de Uñas Encarnadas</h3>
@@ -58,9 +63,9 @@ function Cita() {
             </div>
           </div>
         </div>
+        </div>
       </section>
-    </section>
   )
 }
 
-export default Cita
+export default Servicios

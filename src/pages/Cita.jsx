@@ -1,351 +1,356 @@
-import { useState } from "react";
-import { useSessionStorage } from "../hooks/useSessionStorage";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
 import api from "../api/api";
 
-function Cita() {
+const Cita = () => { 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [mensaje, setMensaje] = useState("");
   const [date, setDate] = useState(new Date());
-  const [selectedService, setSelectedService] = useState(null);
+  const [ocupados, setOcupados] = useState({});
 
-  const [formData, setFormData] = useSessionStorage("registro_cita", {
+  const [formData, setFormData] = useState({
     paso: 1,
     nombre: "",
     apellido: "",
-    servicio: "",
+    servicio: 0,
     fecha: "",
     hora: "",
-    edad: "",
-    email: "",
+    correo: "",
     telefono: "",
-    tiene_diabetes: "false",
-    problemas_circulacion: "false",
-    alergias: ""
+    tiene_diabetes: false,
+    problemas_circulacion: false,
+    alergias: "",
+    comentarios: null,
   });
 
-  const horarios = ["10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"]
+  const horarios = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
 
   /* =====================
-     MANEJADORES
+      VALIDACIONES
   ====================== */
+  const validarPaso = () => {
+    setError(null);
+    const regexLetras = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    const regexTelefono = /^\d{10}$/;
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    if (!formData.servicio) {
+      setError("Por favor, seleccione un servicio.");
+      return false;
+    }
+
+    if (formData.paso === 2) {
+      if (!formData.fecha || !formData.hora) {
+        setError("Seleccione una fecha y una hora válida.");
+        return false;
+      }
+      const fechaSeleccionada = new Date(`${formData.fecha}T${formData.hora}`);
+      if (fechaSeleccionada < new Date()) {
+        setError("No puedes agendar en el pasado.");
+        return false;
+      }
+      if (fechaSeleccionada.getDay() === 0) {
+        setError("No atendemos los domingos.");
+        return false;
+      }
+    }
+    if (formData.paso === 3) {
+      if (!formData.nombre || formData.nombre.length > 100 || !regexLetras.test(formData.nombre)) {
+        setError("Nombre inválido (solo letras, máx 100 caracteres).");
+        return false;
+      }
+      if (!formData.apellido || formData.apellido.length > 100 || !regexLetras.test(formData.apellido)) {
+        setError("Apellido inválido (solo letras, máx 100 caracteres).");
+        return false;
+      }
+      if (!formData.telefono || !regexTelefono.test(formData.telefono)) {
+        setError("El teléfono debe tener exactamente 10 dígitos.");
+        return false;
+      }
+      if (formData.correo && !regexEmail.test(formData.correo)) {
+        setError("El formato del correo no es válido.");
+        return false;
+      }
+    }
+    return true;
+  };
+
+  /* =====================
+      MANEJADORES
+  ====================== */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
   const seleccionarServicio = (service) => {
-    setSelectedService(service);
     setFormData({ ...formData, servicio: service });
+    setError(null);
   };
+
+  const formatearFecha = (selectedDate) => {
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(selectedDate.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
   const handleChangeDate = (selectedDate) => {
     setDate(selectedDate);
+    console.log();
     setFormData((prev) => ({
       ...prev,
-      fecha: selectedDate.toISOString().split("T")[0]
+      fecha: formatearFecha(selectedDate)
     }));
   };
 
-
   const handleSelectHour = (horaSeleccionada) => {
     setFormData((prev) => ({ ...prev, hora: horaSeleccionada }));
-  }
-
-  const buildFechaHoraTimestamp = () => {
-    const [hours, minutes] = (formData.fecha);
-    const fechaHora = new Date(formData.fecha);
-    fechaHora.setHours(hours, minutes, 0, 0);
-    return fechaHora.toString();
   };
 
+  const nextStep = () => {
+    if (validarPaso()) {
+      setFormData({ ...formData, paso: formData.paso + 1 });
+    }
+  };
 
-  const nextStep = () => setFormData({ ...formData, paso: formData.paso + 1 });
   const prevStep = () => setFormData({ ...formData, paso: formData.paso - 1 });
 
+  //Cargar calendario y horarios disponibles
+  useEffect(() => {
+    const fetchHorarios = async () => {
+      try {
+        setLoading(true);
+        const { data } = await api.get('/agendar', { params: { fecha: formatearFecha(date) } });
+        if (!Array.isArray(data)) {
+          throw new Error("El formato de datos recibido no es válido.");
+        }
+        const mapa = data.reduce((acc, cita) => {
+
+          const d = new Date(cita.fecha_hora);
+          const fecha = d.toISOString().split("T")[0];
+          const hora = d.toTimeString().slice(0, 5);
+
+          if (!acc[fecha]) acc[fecha] = [];
+          acc[fecha].push(hora);
+          return acc;
+        }, {});
+
+        setOcupados(mapa);
+
+      } catch (err) {
+        setError(err.response?.data?.message || "Error al cargar horarios.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHorarios();
+  }, []);
+
+
+  const fechaSeleccionada = date?.toISOString().split("T")[0];
+  const horariosOcupados = ocupados[fechaSeleccionada] || [];
+  
+  const tileDisabled = ({ date }) => {
+    const fecha = date.toISOString().split("T")[0];
+    const citasDia = ocupados[fecha]?.length || 0;
+    return citasDia >= horarios.length;
+
+  };
+
   /* =====================
-     SUBMIT CON AXIOS
+      ENVÍO DE CITA
   ====================== */
   const handleSubmit = async () => {
+    if (!validarPaso()) return;
+
     setLoading(true);
-    setError(null);
-
     try {
-      const fecha_hora = buildFechaHoraTimestamp();
+      const fecha_hora = `${formData.fecha}T${formData.hora}:00`;
 
-      const response = await api.post("/create", {
+      const response = await api.post("/citas", {
         nombre: formData.nombre,
-        apellidos: formData.apellido,
+        apellido: formData.apellido,
         correo: formData.correo,
         telefono: formData.telefono,
-        edad: formData.edad,
         tiene_diabetes: formData.tiene_diabetes,
         problemas_circulacion: formData.problemas_circulacion,
+        comentarios: null,
         alergias: formData.alergias,
         servicio: formData.servicio,
-        fecha_hora
+        fecha_hora: fecha_hora
       });
-
-      console.log("Respuesta API:", response.data);
-
-      sessionStorage.removeItem("registro_cita");
-      setSelectedService(null);
-      setFormData({
-        paso: 1,
-        nombre: "",
-        apellido: "",
-        servicio: "",
-        fecha: "",
-        hora: "",
-        edad: "",
-        correo: "",
-        telefono: "",
-        tiene_diabetes: false,
-        problemas_circulacion: false,
-        alergias: ""
-      });
-
-      alert("Cita agendada con éxito");
+      setMensaje("Cita agendada con éxito");
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "No se pudo agendar la cita.");
+      setError(err.response?.data?.message || "Error al conectar con el servidor.");
     } finally {
       setLoading(false);
     }
   };
-
   return (
-    <>
-      <section className="testimonials-section" onSubmit={handleSubmit}>
+    <section className="page-premium">
+      <div className="container">
+        <div className="header-pro">
+          <h2>Agendar una Cita</h2>
+          <p>Al finalizar recuerda confirmar la cita.</p>
+        </div>
 
-        {/* PASO 1 */}
+        {/* Barra de Progreso */}
+        <div className="progress-container">
+          <progress className="var-progress" value={formData.paso} max="4"></progress>
+          <p className="author">Paso {formData.paso} de 4</p>
+        </div>
+
+        {error && <div className="error-box"><p className="error-msg">Paso Algo: {error}</p></div>}
+        {mensaje && <div className="success-box"><p className="success-msg">{mensaje}</p></div>}
+
+        {/* PASO 1: SERVICIOS */}
         {formData.paso === 1 && (
-          <section>
+          <div className="animate-fade-in">
             <h2>Seleccione un Servicio</h2>
-            <p className="subtitle">Eliga el servico que requiera.</p>
-
-            <progress className="var-progress" value={(formData.paso)} max="4"></progress>
-
-            <p className="author margin">Paso {formData.paso} de 4</p>
             <div className="testimonials-grid">
-
-              <button className="service-button" onClick={() => seleccionarServicio("Consulta General")}>
-                <div className={`service-card card-consulta ${selectedService === `Consulta General` ? `selected` : ``}`}>
+              <button className="service-button" onClick={() => seleccionarServicio(1)}>
+                <div className={`service-card card-consulta ${formData.servicio === 1 ? `selected` : ``}`}>
                   <div className="card-icon-wrapper"><img src="/consulta.png" className="icon-menu" /></div>
                   <p className="card-title">Consulta General</p>
                 </div>
               </button>
-
-              <button className="service-button" onClick={() => seleccionarServicio("Uñas")}>
-                <div className={`service-card card-unas ${selectedService === `Uñas` ? `selected` : ``}`}>
+              <button className="service-button" onClick={() => seleccionarServicio(2)}>
+                <div className={`service-card card-unas ${formData.servicio === 2 ? `selected` : ``}`}>
                   <div className="card-icon-wrapper"><img src="/tratamiento.png" className="icon-menu" /></div>
                   <p className="card-title">Tratamiento de Uñas</p>
                 </div>
               </button>
-
-              <button className="service-button" onClick={() => seleccionarServicio("Plantillas")}>
-                <div className={`service-card card-ortopedico ${selectedService === `Plantillas` ? `selected` : ``}`}>
+              <button className="service-button" onClick={() => seleccionarServicio(3)}>
+                <div className={`service-card card-ortopedico ${formData.servicio === 3 ? `selected` : ``}`}>
                   <div className="card-icon-wrapper"><img src="/plantilla.png" className="icon-menu" /></div>
                   <p className="card-title">Plantillas Ortopedicas</p>
                 </div>
               </button>
-
-              <button className="service-button" onClick={() => seleccionarServicio("Pie Diabetico")}>
-                <div className={`service-card card-diabetico ${selectedService === `Pie Diabetico` ? `selected` : ``}`}>
+              <button className="service-button" onClick={() => seleccionarServicio(4)}>
+                <div className={`service-card card-diabetico ${formData.servicio === 4 ? `selected` : ``}`}>
                   <div className="card-icon-wrapper"><img src="/diabetico.png" /></div>
                   <p className="card-title">Pie Diabetico</p>
                 </div>
               </button>
-
-              <button className="service-button" onClick={() => seleccionarServicio("Quiropodia")}>
-                <div className={`service-card card-quiropodia ${selectedService === `Quiropodia` ? `selected` : ``}`}>
+              <button className="service-button" onClick={() => seleccionarServicio(5)}>
+                <div className={`service-card card-quiropodia ${formData.servicio === 5 ? `selected` : ``}`}>
                   <div className="card-icon-wrapper"><img src="/quiropodia.png" className="icon-menu" /></div>
                   <p className="card-title">Quiropodia</p>
                 </div>
               </button>
+
             </div>
-          </section>
+          </div>
         )}
 
-        {/* PASO 2 */}
+        {/* PASO 2: CALENDARIO */}
         {formData.paso === 2 && (
-          <section>
-
-            <h2>Eliga fecha y hora disponibles</h2>
-            <p className="subtitle">seleccione un día y una hora para su cita.</p>
-
-            <progress className="var-progress" value={(formData.paso)} max="4"></progress>
-            <p className="author margin">Paso {formData.paso} de 4</p>
-
+          <div className="animate-fade-in">
+            <h2>Elija fecha y hora</h2>
             <div className="calendar-container">
-              <div className="calendar-section">
-                <Calendar
-                  minDate={new Date()}
-                  onChange={handleChangeDate}
-                  value={date}
-                />
-              </div>
-
+              <Calendar minDate={new Date()} onChange={handleChangeDate} value={date} tileDisabled={tileDisabled} />
               <div className="time-section">
-                <label className="time-title">Hora disponible</label>
                 <div className="time-grid">
-                  {horarios.map((hora) => (
-                    <button
-                      key={hora} className={`time-slot ${formData.hora === hora ? "active" : ""}`} onClick={() => handleSelectHour(hora)}> {hora}</button>))}
+                  {horarios.map((h) => {
+                    const ocupado = horariosOcupados.includes(h);
+                    return (
+                      <button
+                        key={h}
+                        disabled={ocupado}
+                        className={`time-slot ${formData.hora === h ? "active" : ""}${ocupado ? "disabled" : ""}`}
+                        onClick={() => handleSelectHour(h)}>{h}
+                      </button>
+                    );
+                  })}
                 </div>
+
               </div>
             </div>
-
-          </section>
+          </div>
         )}
 
-        {/* PASO 3 */}
+        {/* PASO 3: DATOS PERSONALES */}
         {formData.paso === 3 && (
-          <section className="form-section">
-            <h2 className="form-title">Datos personales</h2>
-            <p className="form-subtitle">
-              Completa tus datos para confirmar la cita
-            </p>
-
+          <div className="form-section animate-fade-in">
+            <h2>Datos Personales y Médicos</h2>
             <div className="form-grid">
-              <div className="form-group">
-                <label>Nombre</label>
-                <input
-                  type="text"
-                  name="nombre"
-                  value={formData.nombre}
-                  onChange={handleChange}
-                  placeholder="Juan"
-                />
+              <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} />
+              <input name="apellido" placeholder="Apellido" value={formData.apellido} onChange={handleChange} />
+              <input name="correo" type="email" placeholder="Correo" value={formData.correo} onChange={handleChange} />
+              <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} />
+            </div>
+
+            <hr className="my-4" />
+
+            <div className="medical-info">
+              <h3>Información Médica</h3>
+
+              {/*Diabetes*/}
+              <div className="checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="tiene_diabetes"
+                    checked={formData.tiene_diabetes}
+                    onChange={(e) => handleChange({
+                      target: { name: 'tiene_diabetes', value: e.target.checked }
+                    })}
+                  />
+                  ¿Tiene diabetes?
+                </label>
               </div>
 
-              <div className="form-group">
-                <label>Apellidos</label>
-                <input
-                  type="text"
-                  name="apellido"
-                  value={formData.apellido}
-                  onChange={handleChange}
-                  placeholder="Pérez López"
-                />
+              {/*Problemas del corazón*/}
+              <div className="checkbox-group">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="problemas_circulacion"
+                    checked={formData.problemas_circulacion}
+                    onChange={(e) => handleChange({
+                      target: { name: 'problemas_circulacion', value: e.target.checked }
+                    })}
+                  />
+                  ¿Tiene problemas del corazón?
+                </label>
               </div>
 
-              <div className="form-group">
-                <label>Edad</label>
+              {/*Alergias*/}
+              <div className="input-group full-width">
+                <label htmlFor="alergias">Alergias (si no tiene, dejar en blanco):</label>
                 <input
-                  type="number"
-                  name="edad"
-                  value={formData.edad}
+                  id="alergias"
+                  name="alergias"
+                  placeholder="Especifique sus alergias..."
+                  value={formData.alergias}
                   onChange={handleChange}
-                  placeholder="30"
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Correo electrónico</label>
-                <input
-                  type="email"
-                  name="correo"
-                  value={formData.correo}
-                  onChange={handleChange}
-                  placeholder="correo@ejemplo.com"
-                />
-              </div>
-
-              <div className="form-group full">
-                <label>Teléfono celular</label>
-                <input
-                  type="tel"
-                  name="telefono"
-                  value={formData.telefono}
-                  onChange={handleChange}
-                  placeholder="55 1234 5678"
                 />
               </div>
             </div>
-          </section>
+          </div>
         )}
 
-
-
-
-        {/* PASO 4 */}
+        {/* PASO 4: RESUMEN */}
         {formData.paso === 4 && (
-          <section className="confirmation-wrapper animate-fade-in">
-            <div className="confirmation-header">
-              <div className="check-icon">✓</div>
-              <h3>Resumen de tu Cita</h3>
-              <p className="subtitle">Por favor, verifica que tus datos sean correctos antes de agendar.</p>
-            </div>
-
+          <div className="confirmation-wrapper animate-fade-in">
+            <h3>Resumen de tu Cita</h3>
             <div className="ticket-container rect-elevado">
-              <div className="ticket-body">
-
-                {/* GRUPO: DETALLES DEL SERVICIO */}
-                <div className="ticket-section highlight">
-                  <div className="info-block">
-                    <label>Servicio Seleccionado</label>
-                    <p className="value-primary">{formData.servicio}</p>
-                  </div>
-                </div>
-
-                {/* GRUPO: FECHA Y HORA */}
-                <div className="ticket-row">
-                  <div className="info-block">
-                    <label>Fecha</label>
-                    <p className="value-bold">{formData.fecha}</p>
-                  </div>
-                  <div className="info-block">
-                    <label>Hora</label>
-                    <p className="value-bold">{formData.hora}</p>
-                  </div>
-                </div>
-
-                <hr className="ticket-divider" />
-
-                {/* GRUPO: DATOS PERSONALES */}
-                <div className="ticket-grid">
-                  <div className="info-block">
-                    <label>Paciente</label>
-                    <p>{formData.nombre} {formData.apellidos}</p>
-                  </div>
-                  <div className="info-block">
-                    <label>Edad</label>
-                    <p>{formData.edad} años</p>
-                  </div>
-                  <div className="info-block">
-                    <label>Correo Electrónico</label>
-                    <p className="text-break">{formData.correo}</p>
-                  </div>
-                  <div className="info-block">
-                    <label>Teléfono Celular</label>
-                    <p>{formData.telefono}</p>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Mensaje de Error (si existe) */}
-              {error && (
-                <div className="error-box">
-                  <p className="error-text">⚠️ {error}</p>
-                </div>
-              )}
+              <p><strong>Servicio:</strong> {formData.servicio}</p>
+              <p><strong>Fecha:</strong> {formData.fecha} a las {formData.hora}</p>
+              <p><strong>Paciente:</strong> {formData.nombre} {formData.apellido}</p>
+              <p><strong>Correo:</strong>{formData.correo}</p>
+              <p><strong>Telefono:</strong>{formData.telefono}</p>
             </div>
-
-            <p className="confirmation-note">
-              * Al confirmar, recibirás un recordatorio en tu correo electrónico.
-            </p>
-          </section>
+          </div>
         )}
 
-        {/* BOTONES */}
-        <div className="buttons">
+        {/* BOTONES DE NAVEGACIÓN */}
+        <div className="buttons" style={{ marginTop: '20px' }}>
           {formData.paso > 1 && (
-            <button className="btn btn-secundary" onClick={prevStep} disabled={loading}>
-              Atrás
-            </button>
+            <button className="btn btn-secundary" onClick={prevStep} disabled={loading}>Atrás</button>
           )}
 
           {formData.paso < 4 ? (
@@ -356,9 +361,9 @@ function Cita() {
             </button>
           )}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-}
+};
 
 export default Cita;
