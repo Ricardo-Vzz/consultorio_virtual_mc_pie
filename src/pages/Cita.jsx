@@ -192,13 +192,7 @@ function Cita() {
                 <div className="time-grid">
                   {horarios.map((hora) => (
                     <button
-                      key={hora}
-                      className={`time-slot ${formData.hora === hora ? "active" : ""}`}
-                      onClick={() => handleSelectHour(hora)}
-                    >
-                      {hora}
-                    </button>
-                  ))}
+                      key={hora} className={`time-slot ${formData.hora === hora ? "active" : ""}`} onClick={() => handleSelectHour(hora)}> {hora}</button>))}
                 </div>
               </div>
             </div>
@@ -208,58 +202,141 @@ function Cita() {
 
         {/* PASO 3 */}
         {formData.paso === 3 && (
-          <section>
-            <label>Nombre Completo</label>
-            <input
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-            />
+          <section className="form-section">
+            <h2 className="form-title">Datos personales</h2>
+            <p className="form-subtitle">
+              Completa tus datos para confirmar la cita
+            </p>
 
-            <label>Apellidos</label>
-            <input
-              name="apellido"
-              value={formData.apellido}
-              onChange={handleChange}
-            />
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Nombre</label>
+                <input
+                  type="text"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  placeholder="Juan"
+                />
+              </div>
 
-            <label>Edad</label>
-            <input
-              name="edad"
-              value={formData.edad}
-              onChange={handleChange}
-            />
+              <div className="form-group">
+                <label>Apellidos</label>
+                <input
+                  type="text"
+                  name="apellido"
+                  value={formData.apellido}
+                  onChange={handleChange}
+                  placeholder="Pérez López"
+                />
+              </div>
 
-            <label>Correo</label>
-            <input
-              name="correo"
-              value={formData.correo}
-              onChange={handleChange}
-            />
+              <div className="form-group">
+                <label>Edad</label>
+                <input
+                  type="number"
+                  name="edad"
+                  value={formData.edad}
+                  onChange={handleChange}
+                  placeholder="30"
+                />
+              </div>
 
-            <label>Telefono Celular</label>
-            <input
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleChange}
-            />
+              <div className="form-group">
+                <label>Correo electrónico</label>
+                <input
+                  type="email"
+                  name="correo"
+                  value={formData.correo}
+                  onChange={handleChange}
+                  placeholder="correo@ejemplo.com"
+                />
+              </div>
+
+              <div className="form-group full">
+                <label>Teléfono celular</label>
+                <input
+                  type="tel"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  placeholder="55 1234 5678"
+                />
+              </div>
+            </div>
           </section>
         )}
 
+
+
+
         {/* PASO 4 */}
         {formData.paso === 4 && (
-          <section>
-            <h3>Confirmación</h3>
-            <p><strong>Nombre:</strong> {formData.nombre}</p>
-            <p><strong>Servicio:</strong> {formData.servicio}</p>
-            <p><strong>Fecha:</strong> {formData.fecha}</p>
-            <p><strong>Hora:</strong> {formData.hora}</p>
-            <p><strong>Apellidos:</strong> {formData.apellidos}</p>
-            <p><strong>Edad:</strong> {formData.edad}</p>
-            <p><strong>Correo:</strong> {formData.correo}</p>
-            <p><strong>Telefono Celular:</strong> {formData.telefono}</p>
+          <section className="confirmation-wrapper animate-fade-in">
+            <div className="confirmation-header">
+              <div className="check-icon">✓</div>
+              <h3>Resumen de tu Cita</h3>
+              <p className="subtitle">Por favor, verifica que tus datos sean correctos antes de agendar.</p>
+            </div>
 
-            {error && <p className="error">{error}</p>}
+            <div className="ticket-container rect-elevado">
+              <div className="ticket-body">
+
+                {/* GRUPO: DETALLES DEL SERVICIO */}
+                <div className="ticket-section highlight">
+                  <div className="info-block">
+                    <label>Servicio Seleccionado</label>
+                    <p className="value-primary">{formData.servicio}</p>
+                  </div>
+                </div>
+
+                {/* GRUPO: FECHA Y HORA */}
+                <div className="ticket-row">
+                  <div className="info-block">
+                    <label>Fecha</label>
+                    <p className="value-bold">{formData.fecha}</p>
+                  </div>
+                  <div className="info-block">
+                    <label>Hora</label>
+                    <p className="value-bold">{formData.hora}</p>
+                  </div>
+                </div>
+
+                <hr className="ticket-divider" />
+
+                {/* GRUPO: DATOS PERSONALES */}
+                <div className="ticket-grid">
+                  <div className="info-block">
+                    <label>Paciente</label>
+                    <p>{formData.nombre} {formData.apellidos}</p>
+                  </div>
+                  <div className="info-block">
+                    <label>Edad</label>
+                    <p>{formData.edad} años</p>
+                  </div>
+                  <div className="info-block">
+                    <label>Correo Electrónico</label>
+                    <p className="text-break">{formData.correo}</p>
+                  </div>
+                  <div className="info-block">
+                    <label>Teléfono Celular</label>
+                    <p>{formData.telefono}</p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Mensaje de Error (si existe) */}
+              {error && (
+                <div className="error-box">
+                  <p className="error-text">⚠️ {error}</p>
+                </div>
+              )}
+            </div>
+
+            <p className="confirmation-note">
+              * Al confirmar, recibirás un recordatorio en tu correo electrónico.
+            </p>
           </section>
         )}
 

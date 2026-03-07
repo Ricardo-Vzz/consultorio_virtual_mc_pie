@@ -10,8 +10,20 @@ body {
     padding: 40px 20px;
 }
 
+@media (max-width: 600px) {
+    .buttons {
+        justify-content: center;
+        margin-top: 30px;
+    }
+}
+
+
 .buttons{
-    margin-left: 70%;
+    margin-top: 40px;            /* Baja los botones */
+    display: flex;
+    justify-content: flex-end;   /* A la derecha en desktop */
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .service-button {
@@ -343,4 +355,235 @@ body {
     font-weight: bold;
     color: #999;
     margin-top: 10px;
+}
+
+.page-premium {
+  padding: 50px 20px;
+  background-color: #f4f7f6;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Sección del formulario */
+.form-section {
+  background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Título y subtítulo */
+.form-title {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 5px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-dark);
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Grid de campos */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Grupo de input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+/* Labels */
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+
+/* Inputs */
+.form-group input {
+  padding: 12px 15px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(18, 130, 106, 0.15);
+  outline: none;
+}
+
+/* Placeholder */
+.form-group input::placeholder {
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.confirmation-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.status-header h3 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Punto de pulso animado para indicar que está listo */
+.pulse-success {
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(18, 130, 106, 0.4);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(18, 130, 106, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(18, 130, 106, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(18, 130, 106, 0); }
+}
+
+/* --- EL TICKET MÉDICO --- */
+.medical-ticket {
+    background: var(--color-text-light);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #eef2f1;
+}
+
+.ticket-top {
+    background: #f0fdfa; /* Un tono muy suave derivado del primary */
+    padding: 35px;
+    border-bottom: 2px dashed #d1dbd9;
+    text-align: left;
+}
+
+.badge-category {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--color-secondary);
+    background: rgba(18, 130, 106, 0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.display-service {
+    margin: 15px 0 25px 0;
+    color: var(--color-primary);
+    font-size: 2rem;
+    line-height: 1.1;
+}
+
+.appointment-meta {
+    display: flex;
+    gap: 30px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.meta-item label {
+    display: block;
+    font-size: 0.75rem;
+    color: #777;
+    margin-bottom: 2px;
+}
+
+.meta-item p {
+    font-weight: 700;
+    color: var(--color-text-dark);
+}
+
+/* --- CUERPO DEL TICKET --- */
+.ticket-bottom {
+    padding: 35px;
+}
+
+.patient-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    text-align: left;
+}
+
+.data-box label {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.data-box p {
+    font-size: 1rem;
+    color: var(--color-text-dark);
+}
+
+.data-box p.heavy {
+    font-weight: 600;
+}
+
+/* --- ALERTAS Y NOTAS --- */
+.error-alert {
+    background: #fff5f5;
+    color: #c53030;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 4px solid #f56565;
+}
+
+.terms-text {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 25px;
+    line-height: 1.4;
+}
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 480px) {
+    .appointment-meta { flex-direction: column; gap: 15px; }
+    .patient-grid { grid-template-columns: 1fr; gap: 20px; }
+    .display-service { font-size: 1.6rem; }
 }
