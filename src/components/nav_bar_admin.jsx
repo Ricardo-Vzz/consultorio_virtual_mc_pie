@@ -10,7 +10,6 @@ function NavbarAdmin() {
 
   return (
     <nav className="navbar-admin">
-      {/* ... tus links */}
       <button onClick={handleLogout} className="btn-logout">
         Cerrar Sesión
       </button>
