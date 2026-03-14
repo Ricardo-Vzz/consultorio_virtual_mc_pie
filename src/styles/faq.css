@@ -4,17 +4,6 @@ body {
   color: #4a4a4a;
 }
 
-.faq-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.faq-container h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-}
-
 .faq-item {
   background: #ffffff;
   border: 1px solid #e3e6ea;

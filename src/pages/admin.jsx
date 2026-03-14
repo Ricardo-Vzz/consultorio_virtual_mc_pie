@@ -42,7 +42,7 @@ function Admin() {
     };
     fetchCitas();
   }, []);
-  
+
   //Actualizar estado
   const cambiarEstado = async (id) => {
     const citaActual = citas.find(c => c.id === id);
@@ -54,9 +54,11 @@ function Admin() {
 
   //guardar estado
   const guardarEstado = async (id, nuevoEstado) => {
-        try {
+    try {
       setError(null);
-      await api.put(`/citas/${id}`, { estado: nuevoEstado });
+      await api.put(`/citas/${id}`, {
+        estado: nuevoEstado
+      });
     } catch (err) {
       setError("No se pudo guardar el cambio en el servidor. Intenta de nuevo.");
     }
@@ -90,7 +92,7 @@ function Admin() {
   const confirmarCancelacion = () => {
     if (citaSeleccionada) {
       setCitas(prev => prev.map(c => c.id === citaSeleccionada.id ? { ...c, estado: "cancelada" } : c));
-      guardarEstado(citaSeleccionada.id,"cancelada")
+      guardarEstado(citaSeleccionada.id, "cancelada")
       setModalAbierto(false);
       setCitaSeleccionada(null);
     }
@@ -137,7 +139,7 @@ function Admin() {
               </div>
             ))}
           </div>
-          {modalAbierto  && (
+          {modalAbierto && (
             <div className="modal-overlay" onClick={() => setModalAbierto(false)}>
               <div className="modal-confirmacion" onClick={e => e.stopPropagation()}>
                 <div className="modal-icon">⚠️</div>

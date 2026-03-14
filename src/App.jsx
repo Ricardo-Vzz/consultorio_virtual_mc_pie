@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+//importar librerias
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // importar paginas
 import Home from './pages/home.jsx'
@@ -15,26 +16,30 @@ import Admin from './pages/admin.jsx'
 
 //importar componentes
 import MainLayaut from './layauts/main_layaut.jsx'
+import { AuthProvider } from './components/auth_context.jsx';
 
-function App (){
+function App() {
+
     return (
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element= {<MainLayaut/>} >
-            <Route index element = {<Home/>} />
-            <Route path="/cita" element={<Cita/>} />
-            <Route path="/servicios" element={<Servicios/>} />
-            <Route path="/portafolio" element={<Portafolio/>} />
-            <Route path="/faq" element={<FAQ/>} />
-            <Route path="/contacto" element={<Contacto/>} />
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<MainLayaut />} >
+                        <Route index element={<Home />} />
+                        <Route path="/cita" element={<Cita />} />
+                        <Route path="/servicios" element={<Servicios />} />
+                        <Route path="/portafolio" element={<Portafolio />} />
+                        <Route path="/faq" element={<FAQ />} />
+                        <Route path="/contacto" element={<Contacto />} />
 
-            {/*rutas de admin*/}
-            <Route path="/login" element={<Login/>} />
-            <Route path="/user" element={<User/>}/>
-            <Route path="/admin" element={<Admin/>} />
-            </Route>
-        </Routes>
-    </BrowserRouter>
+                        {/*rutas de admin*/}
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/user" element={<User />} />
+                        <Route path="/admin" element={<Admin />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
     );
 }
 
