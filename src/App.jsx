@@ -8,6 +8,7 @@ import Servicios from './pages/servicios.jsx'
 import Portafolio from './pages/portafolio.jsx'
 import FAQ from './pages/fac.jsx'
 import Contacto from './pages/contacto.jsx'
+import Pagexist from './pages/pagexist.jsx'
 
 //importar paginas de admin
 import Login from './pages/login.jsx'
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/portafolio" element={<Portafolio />} />
                         <Route path="/faq" element={<FAQ />} />
                         <Route path="/contacto" element={<Contacto />} />
+                        <Route path="/*" element={<Pagexist />} />
 
                         {/*rutas de admin*/}
                         <Route path="/login" element={<Login />} />

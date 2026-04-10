@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "./auth_context";
 
 function NavbarAdmin() {
@@ -5,9 +6,9 @@ function NavbarAdmin() {
 
   return (
     <nav className="navbar-admin">
-        <button className="btn-logout" onClick={logout}>
-          Cerrar Sesión
-        </button>
+      <div className="cta-buttons">
+       <Link to="/" onClick={logout} className="btn btn-secondary"> Cerrar Sesión</Link>
+       </div>
     </nav>
   );
 }
